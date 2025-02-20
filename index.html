@@ -9,7 +9,17 @@
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background: #f5f5f5;
+            background: url('https://pic.616pic.com/bg_w1180/00/04/08/IUJ3YkDsO6.jpg') center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+        }
+        .wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
         .tab-container {
             margin-bottom: 20px;
@@ -59,22 +69,20 @@
         }
         .main-container {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 15px;
         }
         .left-panel {
-            flex: 0 0 260px;
+            flex: 0 0 220px;
         }
         .right-panel {
             flex: 1;
         }
         .control-panel {
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: relative;
             margin-bottom: 15px;
-            padding: 10px;
-            background: #fff;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid #ddd;
             border-radius: 5px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -82,8 +90,11 @@
         .control-row {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            width: 100%;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
         }
         .button-group {
             display: flex;
@@ -92,8 +103,8 @@
         .stats-container {
             position: sticky;
             top: 80px;
-            padding: 15px;
-            background: #fff;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 5px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -118,18 +129,18 @@
             font-weight: bold;
         }
         .numbers-container {
-            background: #fff;
-            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
             border-radius: 5px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             display: grid;
             grid-template-columns: repeat(2, 1fr);  /* 两列布局 */
-            gap: 8px;  /* 格子间距 */
+            gap: 6px;  /* 格子间距 */
         }
         .group {
             margin: 0;
-            padding: 6px 10px;
+            padding: 5px 8px;
             border: 1px solid #eee;
             box-sizing: border-box;
             background: #fff;
@@ -206,33 +217,59 @@
             font-size: 12px;
         }
         button {
+            padding: 6px 15px;
+            font-size: 13px;
+            border-radius: 4px;
             background: #1890ff;
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 13px;
         }
         button:hover {
             background: #40a9ff;
+            transform: translateY(-1px);
         }
         .winning-numbers {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin-left: 20px;
             vertical-align: middle;
+            position: relative;
+            z-index: 1;
         }
         .winning-title {
             font-size: 14px;
             color: #666;
             margin-right: 10px;
+            white-space: nowrap;
+        }
+        .usage-tips {
+            background: rgba(255, 243, 243, 0.95);
+            border: 1px solid #ffcaca;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            color: #ff4444;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .usage-steps {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+        .usage-steps li {
+            margin: 3px 0;
+        }
+        .blue-balls.dlt {
+            display: inline-flex;
+            margin-left: 8px;
+            gap: 2px;
         }
         h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 15px;
-            font-size: 20px;
+            color: #d4363b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
         .input-section {
             display: flex;
@@ -244,17 +281,20 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            background: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
         }
         .input-label {
-            white-space: nowrap;
-            color: #666;
             font-size: 13px;
+            color: #666;
         }
         input[type="number"] {
             width: 80px;
             padding: 4px 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 13px;
         }
         /* 大乐透蓝球样式 */
         .dlt .blue-balls {
@@ -274,12 +314,6 @@
         .input-label {
             color: #666;
             white-space: nowrap;
-        }
-        input[type="number"] {
-            width: 80px;
-            padding: 4px 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
         }
         input[type="text"].red-input {
             width: 150px;
@@ -302,139 +336,338 @@
             padding: 4px 8px;
             border-radius: 4px;
         }
+        .number-selector {
+            padding: 12px 15px;
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+        }
+        .number-selector-title {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .zone-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 0 5px;
+        }
+        .zone-title span {
+            font-size: 13px;
+            color: #666;
+        }
+        .zone-title .hint {
+            font-size: 12px;
+            color: #999;
+            background: #fff;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 6px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 6px;
+        }
+        .number-ball {
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            color: #666;
+            border: 1px solid #e8e8e8;
+            user-select: none;
+            background: #fff;
+        }
+        .number-ball:hover {
+            border-color: #ff4444;
+            color: #ff4444;
+            transform: scale(1.05);
+        }
+        .number-ball.selected {
+            background-color: #ff4444;
+            color: white;
+            border-color: #ff4444;
+            box-shadow: 0 2px 4px rgba(255, 68, 68, 0.2);
+        }
+        .number-ball.blue {
+            border-color: #4444ff;
+        }
+        .number-ball.blue:hover {
+            border-color: #4444ff;
+            color: #4444ff;
+        }
+        .number-ball.blue.selected {
+            background-color: #4444ff;
+            border-color: #4444ff;
+            box-shadow: 0 2px 4px rgba(68, 68, 255, 0.2);
+        }
+        .number-ball.dlt-blue {
+            border-color: #1890ff;
+        }
+        .number-ball.dlt-blue:hover {
+            border-color: #1890ff;
+            color: #1890ff;
+        }
+        .number-ball.dlt-blue.selected {
+            background-color: #1890ff;
+            border-color: #1890ff;
+            box-shadow: 0 2px 4px rgba(24, 144, 255, 0.2);
+        }
+        /* 修改红包雨样式 */
+        .red-packet {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            animation: fall linear forwards;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="%23d4363b"/><path d="M12 2l4 4H8l4-4z" fill="%23d4363b"/><rect x="8" y="10" width="8" height="2" fill="%23fff"/></svg>') center/contain no-repeat;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(360deg);
+                opacity: 0.6;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>彩票随机选号</h1>
-    <div class="tab-buttons">
-        <button class="tab-button active" onclick="switchTab('ssq')">双色球</button>
-        <button class="tab-button" onclick="switchTab('dlt')">大乐透</button>
-    </div>
-    <div id="ssq" class="tab-content active">
-        <div class="control-panel">
-            <div class="control-row">
-                <div class="input-group">
-                    <span class="input-label">当前中奖号码：</span>
-                    <input type="text" id="redNumberInput" class="red-input"
-                        placeholder="例如：21,29,3,18,9,28" 
-                        value="21,29,3,18,9,28"
-                        onchange="updateNumbers('ssq')">
-                    <input type="text" id="blueNumberInput" class="blue-input"
-                        placeholder="11" 
-                        value="11"
-                        onchange="updateNumbers('ssq')">
-                </div>
-            </div>
-            <div class="control-row">
-                <div class="input-group">
-                    <span class="input-label">生成数量：</span>
-                    <input type="number" id="generateCount" 
-                        min="1" max="10000" value="100" 
-                        onchange="validateCount(this)">
-                    <button onclick="generateFromInput()">生成号码</button>
-                </div>
-            </div>
-            <div class="winning-numbers" id="winningNumbersDisplay"></div>
+    <div class="wrapper">
+        <h1>彩票随机选号</h1>
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="switchTab('ssq')">双色球</button>
+            <button class="tab-button" onclick="switchTab('dlt')">大乐透</button>
         </div>
-        <div class="main-container">
-            <div class="left-panel">
-                <div class="stats-container">
-                    <h3>本次生成结果统计</h3>
-                    <p>总共生成 <strong id="totalCount">0</strong> 组号码</p>
-                    <p>中奖情况：</p>
-                    <ul>
-                        <li>一等奖：<strong id="prize1">0</strong> 注</li>
-                        <li>二等奖：<strong id="prize2">0</strong> 注</li>
-                        <li>三等奖(3000元)：<strong id="prize3">0</strong> 注</li>
-                        <li>四等奖(200元)：<strong id="prize4">0</strong> 注</li>
-                        <li>五等奖(10元)：<strong id="prize5">0</strong> 注</li>
-                        <li>六等奖(5元)：<strong id="prize6">0</strong> 注</li>
-                        <li>未中奖：<strong id="prize0">0</strong> 注</li>
-                    </ul>
-                    <p>总中奖注数：<strong id="totalWinCount">0</strong> 注</p>
-                    <p>中奖率：<strong id="winRate">0%</strong></p>
-                    <p>总中奖金额：<strong id="totalPrizeMoney" class="prize-money">0元</strong></p>
+        <div id="ssq" class="tab-content active">
+            <div class="control-panel">
+                <div class="usage-tips">
+                    使用说明：
+                    <ol class="usage-steps">
+                        <li><strong>第一步：</strong>在下方选择本期开奖号码（双色球选6红1蓝）</li>
+                        <li><strong>第二步：</strong>输入要生成的随机号码数量（1-10000）</li>
+                        <li><strong>第三步：</strong>点击"生成号码"按钮，系统将生成随机号码并自动计算中奖情况</li>
+                    </ol>
                 </div>
+                <div class="number-selector">
+                    <div class="number-selector-title">本期开奖号码</div>
+                    <div class="zone-title">
+                        <span>红球区</span>
+                        <span class="hint">选择6个号码</span>
+                    </div>
+                    <div class="number-grid" id="ssqRedBalls"></div>
+                    <div class="zone-title">
+                        <span>蓝球区</span>
+                        <span class="hint">选择1个号码</span>
+                    </div>
+                    <div class="number-grid" id="ssqBlueBalls"></div>
+                </div>
+                <div class="control-row">
+                    <div class="input-group">
+                        <span class="input-label">生成数量：</span>
+                        <input type="number" id="generateCount" 
+                            min="1" max="10000" value="100" 
+                            onchange="validateCount(this)">
+                        <button onclick="generateFromInput()">生成号码</button>
+                    </div>
+                </div>
+                <div class="winning-numbers" id="winningNumbersDisplay"></div>
             </div>
-            <div class="right-panel">
-                <div class="numbers-container" id="numbersList"></div>
+            <div class="main-container">
+                <div class="left-panel">
+                    <div class="stats-container">
+                        <h3>本次生成结果统计</h3>
+                        <p>总共生成 <strong id="totalCount">0</strong> 组号码</p>
+                        <p>中奖情况：</p>
+                        <ul>
+                            <li>一等奖：<strong id="prize1">0</strong> 注</li>
+                            <li>二等奖：<strong id="prize2">0</strong> 注</li>
+                            <li>三等奖(3000元)：<strong id="prize3">0</strong> 注</li>
+                            <li>四等奖(200元)：<strong id="prize4">0</strong> 注</li>
+                            <li>五等奖(10元)：<strong id="prize5">0</strong> 注</li>
+                            <li>六等奖(5元)：<strong id="prize6">0</strong> 注</li>
+                            <li>未中奖：<strong id="prize0">0</strong> 注</li>
+                        </ul>
+                        <p>总中奖注数：<strong id="totalWinCount">0</strong> 注</p>
+                        <p>中奖率：<strong id="winRate">0%</strong></p>
+                        <p>总中奖金额：<strong id="totalPrizeMoney" class="prize-money">0元</strong></p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <div class="numbers-container" id="numbersList"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="dlt" class="tab-content">
-        <div class="control-panel">
-            <div class="control-row">
-                <div class="input-group">
-                    <span class="input-label">当前中奖号码：</span>
-                    <input type="text" id="dltRedNumberInput" class="red-input"
-                        placeholder="例如：01,15,25,30,35" 
-                        value="01,15,25,30,35"
-                        onchange="updateNumbers('dlt')">
-                    <input type="text" id="dltBlueNumberInput" class="blue-input dlt-blue-input"
-                        placeholder="05,12" 
-                        value="05,12"
-                        onchange="updateNumbers('dlt')">
+        <div id="dlt" class="tab-content">
+            <div class="control-panel">
+                <div class="usage-tips">
+                    使用说明：
+                    <ol class="usage-steps">
+                        <li><strong>第一步：</strong>在下方选择本期开奖号码（大乐透选5红2蓝）</li>
+                        <li><strong>第二步：</strong>输入要生成的随机号码数量（1-10000）</li>
+                        <li><strong>第三步：</strong>点击"生成号码"按钮，系统将生成随机号码并自动计算中奖情况</li>
+                    </ol>
                 </div>
-            </div>
-            <div class="control-row">
-                <div class="input-group">
-                    <span class="input-label">生成数量：</span>
-                    <input type="number" id="dltGenerateCount" 
-                        min="1" max="10000" value="100" 
-                        onchange="validateCount(this)">
-                    <button onclick="generateDltFromInput()">生成号码</button>
+                <div class="number-selector">
+                    <div class="number-selector-title">本期开奖号码</div>
+                    <div class="zone-title">
+                        <span>红球区</span>
+                        <span class="hint">选择5个号码</span>
+                    </div>
+                    <div class="number-grid" id="dltRedBalls"></div>
+                    <div class="zone-title">
+                        <span>蓝球区</span>
+                        <span class="hint">选择2个号码</span>
+                    </div>
+                    <div class="number-grid" id="dltBlueBalls"></div>
                 </div>
-            </div>
-            <div class="winning-numbers" id="dltWinningNumbersDisplay"></div>
-        </div>
-        <div class="main-container">
-            <div class="left-panel">
-                <div class="stats-container">
-                    <h3>本次生成结果统计</h3>
-                    <p>总共生成 <strong id="dltTotalCount">0</strong> 组号码</p>
-                    <p>中奖情况：</p>
-                    <ul>
-                        <li>一等奖：<strong id="dltPrize1">0</strong> 注</li>
-                        <li>二等奖：<strong id="dltPrize2">0</strong> 注</li>
-                        <li>三等奖(10000元)：<strong id="dltPrize3">0</strong> 注</li>
-                        <li>四等奖(3000元)：<strong id="dltPrize4">0</strong> 注</li>
-                        <li>五等奖(300元)：<strong id="dltPrize5">0</strong> 注</li>
-                        <li>六等奖(200元)：<strong id="dltPrize6">0</strong> 注</li>
-                        <li>七等奖(100元)：<strong id="dltPrize7">0</strong> 注</li>
-                        <li>八等奖(15元)：<strong id="dltPrize8">0</strong> 注</li>
-                        <li>九等奖(5元)：<strong id="dltPrize9">0</strong> 注</li>
-                        <li>未中奖：<strong id="dltPrize0">0</strong> 注</li>
-                    </ul>
-                    <p>总中奖注数：<strong id="dltTotalWinCount">0</strong> 注</p>
-                    <p>中奖率：<strong id="dltWinRate">0%</strong></p>
-                    <p>总中奖金额：<strong id="dltTotalPrizeMoney" class="prize-money">0元</strong></p>
+                <div class="control-row">
+                    <div class="input-group">
+                        <span class="input-label">生成数量：</span>
+                        <input type="number" id="dltGenerateCount" 
+                            min="1" max="10000" value="100" 
+                            onchange="validateCount(this)">
+                        <button onclick="generateDltFromInput()">生成号码</button>
+                    </div>
                 </div>
+                <div class="winning-numbers" id="dltWinningNumbersDisplay"></div>
             </div>
-            <div class="right-panel">
-                <div class="numbers-container" id="dltNumbersList"></div>
+            <div class="main-container">
+                <div class="left-panel">
+                    <div class="stats-container">
+                        <h3>本次生成结果统计</h3>
+                        <p>总共生成 <strong id="dltTotalCount">0</strong> 组号码</p>
+                        <p>中奖情况：</p>
+                        <ul>
+                            <li>一等奖：<strong id="dltPrize1">0</strong> 注</li>
+                            <li>二等奖：<strong id="dltPrize2">0</strong> 注</li>
+                            <li>三等奖(10000元)：<strong id="dltPrize3">0</strong> 注</li>
+                            <li>四等奖(3000元)：<strong id="dltPrize4">0</strong> 注</li>
+                            <li>五等奖(300元)：<strong id="dltPrize5">0</strong> 注</li>
+                            <li>六等奖(200元)：<strong id="dltPrize6">0</strong> 注</li>
+                            <li>七等奖(100元)：<strong id="dltPrize7">0</strong> 注</li>
+                            <li>八等奖(15元)：<strong id="dltPrize8">0</strong> 注</li>
+                            <li>九等奖(5元)：<strong id="dltPrize9">0</strong> 注</li>
+                            <li>未中奖：<strong id="dltPrize0">0</strong> 注</li>
+                        </ul>
+                        <p>总中奖注数：<strong id="dltTotalWinCount">0</strong> 注</p>
+                        <p>中奖率：<strong id="dltWinRate">0%</strong></p>
+                        <p>总中奖金额：<strong id="dltTotalPrizeMoney" class="prize-money">0元</strong></p>
+                    </div>
+                </div>
+                <div class="right-panel">
+                    <div class="numbers-container" id="dltNumbersList"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // 在脚本开始处添加变量声明
         let winningNumbers = {
-            red: [21, 29, 3, 18, 9, 28],
-            blue: 11
+            red: [],
+            blue: 0
         };
 
         let dltWinningNumbers = {
-            red: [1, 15, 25, 30, 35],
-            blue: [5, 12]
+            red: [],
+            blue: []
         };
 
-        // 显示中奖号码的函数
-        function displayWinningNumbers() {
-            let html = '<span class="winning-title">当前中奖号码:</span>';
-            winningNumbers.red.forEach(number => {
-                html += `<span class="red-ball">${number.toString().padStart(2, '0')}</span>`;
-            });
-            html += `<span class="blue-ball">${winningNumbers.blue.toString().padStart(2, '0')}</span>`;
-            document.getElementById('winningNumbersDisplay').innerHTML = html;
+        // 修改验证函数
+        function validateWinningNumbers(type) {
+            if (type === 'ssq') {
+                const selectedRed = document.querySelectorAll('#ssqRedBalls .selected').length;
+                const selectedBlue = document.querySelectorAll('#ssqBlueBalls .selected').length;
+                
+                if (selectedRed !== 6) {
+                    alert('请选择6个红球号码！');
+                    return false;
+                }
+                if (selectedBlue !== 1) {
+                    alert('请选择1个蓝球号码！');
+                    return false;
+                }
+            } else {
+                const selectedRed = document.querySelectorAll('#dltRedBalls .selected').length;
+                const selectedBlue = document.querySelectorAll('#dltBlueBalls .selected').length;
+                
+                if (selectedRed !== 5) {
+                    alert('请选择5个红球号码！');
+                    return false;
+                }
+                if (selectedBlue !== 2) {
+                    alert('请选择2个蓝球号码！');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        // 修改更新选中号码的函数
+        function updateSelectedNumbers(type) {
+            const numbers = {
+                red: Array.from(document.querySelectorAll(`#${type}RedBalls .selected`))
+                    .map(ball => parseInt(ball.dataset.number))
+                    .sort((a, b) => a - b),
+                blue: Array.from(document.querySelectorAll(`#${type}BlueBalls .selected`))
+                    .map(ball => parseInt(ball.dataset.number))
+                    .sort((a, b) => a - b)
+            };
+            
+            if (type === 'ssq') {
+                winningNumbers = {
+                    red: numbers.red,
+                    blue: numbers.blue[0] || 0
+                };
+                if (numbers.red.length === 6 && numbers.blue.length === 1) {
+                    displayWinningNumbers();
+                }
+            } else {
+                dltWinningNumbers = numbers;
+                if (numbers.red.length === 5 && numbers.blue.length === 2) {
+                    displayDltWinningNumbers();
+                }
+            }
+        }
+
+        // 修改生成号码的函数
+        function generateFromInput() {
+            if (!validateWinningNumbers('ssq')) {
+                return;
+            }
+            const count = parseInt(document.getElementById('generateCount').value);
+            if (count < 1 || count > 10000) {
+                alert('请输入1-10000之间的数量！');
+                return;
+            }
+            generateMultipleNumbers(count);
+        }
+
+        function generateDltFromInput() {
+            if (!validateWinningNumbers('dlt')) {
+                return;
+            }
+            const count = parseInt(document.getElementById('dltGenerateCount').value);
+            if (count < 1 || count > 10000) {
+                alert('请输入1-10000之间的数量！');
+                return;
+            }
+            generateDltMultipleNumbers(count);
         }
 
         function validateCount(input) {
@@ -446,77 +679,26 @@
             }
         }
 
-        function updateNumbers(type) {
-            if (type === 'ssq') {
-                const redInput = document.getElementById('redNumberInput').value;
-                const blueInput = document.getElementById('blueNumberInput').value;
-                
-                const redNumbers = redInput.split(',').map(n => parseInt(n.trim()));
-                const blueNumber = parseInt(blueInput.trim());
-
-                // 验证红球
-                if (redNumbers.length !== 6 || redNumbers.some(isNaN)) {
-                    alert('请输入6个红球号码，用逗号分隔！');
-                    return;
-                }
-                if (!redNumbers.every(n => n >= 1 && n <= 33)) {
-                    alert('红球号码必须在1-33之间！');
-                    return;
-                }
-
-                // 验证蓝球
-                if (isNaN(blueNumber) || blueNumber < 1 || blueNumber > 16) {
-                    alert('蓝球号码必须在1-16之间！');
-                    return;
-                }
-
-                winningNumbers = {
-                    red: redNumbers,
-                    blue: blueNumber
-                };
-                displayWinningNumbers();
-            } else {
-                const redInput = document.getElementById('dltRedNumberInput').value;
-                const blueInput = document.getElementById('dltBlueNumberInput').value;
-                
-                const redNumbers = redInput.split(',').map(n => parseInt(n.trim()));
-                const blueNumbers = blueInput.split(',').map(n => parseInt(n.trim()));
-
-                // 验证红球
-                if (redNumbers.length !== 5 || redNumbers.some(isNaN)) {
-                    alert('请输入5个红球号码，用逗号分隔！');
-                    return;
-                }
-                if (!redNumbers.every(n => n >= 1 && n <= 35)) {
-                    alert('红球号码必须在1-35之间！');
-                    return;
-                }
-
-                // 验证蓝球
-                if (blueNumbers.length !== 2 || blueNumbers.some(isNaN)) {
-                    alert('请输入2个蓝球号码，用逗号分隔！');
-                    return;
-                }
-                if (!blueNumbers.every(n => n >= 1 && n <= 12)) {
-                    alert('蓝球号码必须在1-12之间！');
-                    return;
-                }
-
-                dltWinningNumbers = {
-                    red: redNumbers,
-                    blue: blueNumbers
-                };
-                displayDltWinningNumbers();
-            }
+        function displayWinningNumbers() {
+            let html = '<span class="winning-title">当前中奖号码:</span>';
+            winningNumbers.red.forEach(number => {
+                html += `<span class="red-ball">${number.toString().padStart(2, '0')}</span>`;
+            });
+            html += `<span class="blue-ball">${winningNumbers.blue.toString().padStart(2, '0')}</span>`;
+            document.getElementById('winningNumbersDisplay').innerHTML = html;
         }
 
-        function generateFromInput() {
-            const count = parseInt(document.getElementById('generateCount').value);
-            if (count < 1 || count > 10000) {
-                alert('请输入1-10000之间的数量！');
-                return;
-            }
-            generateMultipleNumbers(count);
+        function displayDltWinningNumbers() {
+            let html = '<span class="winning-title">当前中奖号码:</span>';
+            // 显示红球
+            dltWinningNumbers.red.forEach(number => {
+                html += `<span class="red-ball">${number.toString().padStart(2, '0')}</span>`;
+            });
+            // 显示蓝球（保持在同一行）
+            dltWinningNumbers.blue.forEach(number => {
+                html += `<span class="blue-ball">${number.toString().padStart(2, '0')}</span>`;
+            });
+            document.getElementById('dltWinningNumbersDisplay').innerHTML = html;
         }
 
         function generateOneGroup() {
@@ -655,25 +837,6 @@
             document.getElementById('numbersList').innerHTML = resultHTML;
         }
 
-        // 页面加载时初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            updateNumbers('ssq');
-            updateNumbers('dlt');
-        });
-
-        function switchTab(tabName) {
-            // 切换标签页
-            document.querySelectorAll('.tab-button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-        }
-
         function generateDltOneGroup() {
             // 生成5个红球号码（1-35）
             let redBalls = new Set();
@@ -745,15 +908,6 @@
             }
         }
 
-        function generateDltFromInput() {
-            const count = parseInt(document.getElementById('dltGenerateCount').value);
-            if (count < 1 || count > 10000) {
-                alert('请输入1-10000之间的数量！');
-                return;
-            }
-            generateDltMultipleNumbers(count);
-        }
-
         function generateDltMultipleNumbers(count) {
             let resultHTML = '';
             let prizeStats = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 0: 0};
@@ -777,7 +931,7 @@
                     resultHTML += `<span class="red-ball">${number.toString().padStart(2, '0')}</span>`;
                 });
                 
-                // 显示蓝球（分开显示）
+                // 显示蓝球（保持在同一行）
                 resultHTML += `<div class="blue-balls dlt">`;
                 numbers.blue.forEach(number => {
                     resultHTML += `<span class="blue-ball">${number.toString().padStart(2, '0')}</span>`;
@@ -818,19 +972,17 @@
             document.getElementById('dltNumbersList').innerHTML = resultHTML;
         }
 
-        function displayDltWinningNumbers() {
-            let html = '<span class="winning-title">当前中奖号码:</span>';
-            // 显示红球
-            dltWinningNumbers.red.forEach(number => {
-                html += `<span class="red-ball">${number.toString().padStart(2, '0')}</span>`;
+        function switchTab(tabName) {
+            // 切换标签页
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
             });
-            // 显示蓝球（分开显示）
-            html += `<div class="blue-balls dlt">`;
-            dltWinningNumbers.blue.forEach(number => {
-                html += `<span class="blue-ball">${number.toString().padStart(2, '0')}</span>`;
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
             });
-            html += `</div>`;
-            document.getElementById('dltWinningNumbersDisplay').innerHTML = html;
+            
+            document.querySelector(`button[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
         }
 
         // 初始化号码选择器
@@ -848,7 +1000,7 @@
             const ssqBlueBalls = document.getElementById('ssqBlueBalls');
             for (let i = 1; i <= 16; i++) {
                 ssqBlueBalls.innerHTML += `
-                    <div class="number-ball" onclick="toggleBall(this, 'ssq', 'blue')" data-number="${i}">
+                    <div class="number-ball blue" onclick="toggleBall(this, 'ssq', 'blue')" data-number="${i}">
                         ${i.toString().padStart(2, '0')}
                     </div>`;
             }
@@ -866,7 +1018,7 @@
             const dltBlueBalls = document.getElementById('dltBlueBalls');
             for (let i = 1; i <= 12; i++) {
                 dltBlueBalls.innerHTML += `
-                    <div class="number-ball" onclick="toggleBall(this, 'dlt', 'blue')" data-number="${i}">
+                    <div class="number-ball dlt-blue" onclick="toggleBall(this, 'dlt', 'blue')" data-number="${i}">
                         ${i.toString().padStart(2, '0')}
                     </div>`;
             }
@@ -893,28 +1045,6 @@
             }
             
             updateSelectedNumbers(type);
-        }
-
-        function updateSelectedNumbers(type) {
-            const numbers = {
-                red: Array.from(document.querySelectorAll(`#${type}RedBalls .selected`))
-                    .map(ball => parseInt(ball.dataset.number))
-                    .sort((a, b) => a - b),
-                blue: Array.from(document.querySelectorAll(`#${type}BlueBalls .selected`))
-                    .map(ball => parseInt(ball.dataset.number))
-                    .sort((a, b) => a - b)
-            };
-            
-            if (type === 'ssq') {
-                winningNumbers = {
-                    red: numbers.red,
-                    blue: numbers.blue[0]
-                };
-                displayWinningNumbers();
-            } else {
-                dltWinningNumbers = numbers;
-                displayDltWinningNumbers();
-            }
         }
 
         function randomSelect(type) {
@@ -966,11 +1096,54 @@
             updateSelectedNumbers(type);
         }
 
+        // 优化红包雨效果
+        function createRedPacket() {
+            const redPacket = document.createElement('div');
+            redPacket.className = 'red-packet';
+            
+            // 随机大小和位置
+            const size = Math.random() * 30 + 20;
+            const startPosition = Math.random() * window.innerWidth;
+            const duration = Math.random() * 3 + 2;
+            
+            redPacket.style.cssText = `
+                left: ${startPosition}px;
+                width: ${size}px;
+                height: ${size}px;
+                animation-duration: ${duration}s;
+                filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+            `;
+            
+            document.body.appendChild(redPacket);
+            
+            // 动画结束后移除元素
+            redPacket.addEventListener('animationend', () => {
+                redPacket.remove();
+            });
+        }
+
+        // 优化红包雨创建频率
+        function startRedPacketRain() {
+            // 初始创建一些红包
+            for(let i = 0; i < 10; i++) {
+                setTimeout(() => createRedPacket(), i * 100);
+            }
+            
+            // 持续创建红包
+            setInterval(() => {
+                if(document.querySelectorAll('.red-packet').length < 20) { // 限制最大数量
+                    createRedPacket();
+                }
+            }, 200);
+        }
+
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             initializeNumberSelectors();
-            randomSelect('ssq');
-            randomSelect('dlt');
+            // 不再自动生成号码，等待用户选择开奖号码
+            // randomSelect('ssq');
+            // randomSelect('dlt');
+            startRedPacketRain();
         });
     </script>
 </body>
