@@ -16,34 +16,40 @@
         }
         .tab-buttons {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding: 0;
+            background: none;
+            box-shadow: none;
         }
         .tab-button {
-            padding: 12px 30px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 16px;
-            font-weight: 500;
+            padding: 8px 20px;
+            border: none;
+            border-radius: 0;
+            background: none;
             color: #666;
-            min-width: 120px;
-            text-align: center;
+            font-size: 14px;
+            font-weight: normal;
+            position: relative;
+            min-width: 80px;
         }
         .tab-button:hover {
-            background: #f5f5f5;
-            color: #333;
+            color: #1890ff;
+            background: none;
         }
         .tab-button.active {
+            color: #1890ff;
+            background: none;
+            font-weight: 500;
+        }
+        .tab-button.active:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
             background: #1890ff;
-            color: white;
-            border-color: #1890ff;
         }
         .tab-content {
             display: none;
@@ -53,11 +59,11 @@
         }
         .main-container {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin-top: 20px;
         }
         .left-panel {
-            flex: 0 0 300px;
+            flex: 0 0 260px;
         }
         .right-panel {
             flex: 1;
@@ -66,8 +72,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            margin-bottom: 20px;
-            padding: 15px;
+            margin-bottom: 15px;
+            padding: 10px;
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -76,7 +82,7 @@
         .control-row {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             width: 100%;
         }
         .button-group {
@@ -86,25 +92,26 @@
         .stats-container {
             position: sticky;
             top: 80px;
-            padding: 20px;
+            padding: 15px;
             background: #fff;
             border-radius: 5px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
+        .stats-container h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .stats-container p {
+            font-size: 13px;
+            margin: 5px 0;
+        }
         .stats-container ul {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0;
+            margin: 8px 0;
         }
         .stats-container li {
-            padding: 5px 0;
-            border-bottom: 1px dashed #eee;
-            display: flex;
-            justify-content: space-between;
-        }
-        .stats-container li:last-child {
-            border-bottom: none;
+            padding: 3px 0;
+            font-size: 13px;
         }
         .prize-money {
             color: #ff6b6b;
@@ -112,17 +119,17 @@
         }
         .numbers-container {
             background: #fff;
-            padding: 15px;
+            padding: 10px;
             border-radius: 5px;
             border: 1px solid #ddd;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
             display: grid;
             grid-template-columns: repeat(2, 1fr);  /* 两列布局 */
-            gap: 10px;  /* 格子间距 */
+            gap: 8px;  /* 格子间距 */
         }
         .group {
             margin: 0;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 1px solid #eee;
             box-sizing: border-box;
             background: #fff;
@@ -146,7 +153,7 @@
             color: #666;
             font-size: 12px;
             margin-right: 5px;
-            min-width: 45px;  /* 固定序号宽度 */
+            min-width: 40px;  /* 固定序号宽度 */
         }
         .balls-container {
             display: flex;
@@ -156,12 +163,12 @@
         }
         .prize-label {
             color: #ff0000;
-            font-size: 12px;
+            font-size: 11px;
             background: #fff3f3;
-            padding: 2px 8px;
+            padding: 2px 6px;
             border-radius: 3px;
             border: 1px solid #ffcaca;
-            min-width: 100px;  /* 增加宽度以适应奖金显示 */
+            min-width: 90px;  /* 增加宽度以适应奖金显示 */
             text-align: right;
             white-space: nowrap;
         }
@@ -176,36 +183,37 @@
         }
         .red-ball {
             display: inline-block;
-            width: 28px;
-            height: 28px;
-            line-height: 28px;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
             text-align: center;
             background-color: #ff4444;
             color: white;
             border-radius: 50%;
             margin: 0 2px;
-            font-size: 14px;
+            font-size: 12px;
         }
         .blue-ball {
             display: inline-block;
-            width: 28px;
-            height: 28px;
-            line-height: 28px;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
             text-align: center;
             background-color: #4444ff;
             color: white;
             border-radius: 50%;
             margin-left: 8px;
-            font-size: 14px;
+            font-size: 12px;
         }
         button {
             background: #1890ff;
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 6px 12px;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 13px;
         }
         button:hover {
             background: #40a9ff;
@@ -223,7 +231,8 @@
         h1 {
             color: #333;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
+            font-size: 20px;
         }
         .input-section {
             display: flex;
@@ -234,11 +243,12 @@
         .input-group {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
         .input-label {
             white-space: nowrap;
             color: #666;
+            font-size: 13px;
         }
         input[type="number"] {
             width: 80px;
@@ -285,6 +295,12 @@
         }
         .control-row {
             margin-bottom: 10px;
+        }
+        input[type="text"].dlt-blue-input {
+            width: 80px;  /* 大乐透蓝球输入框稍宽一些，因为要输入两个号码 */
+            border: 1px solid #bae7ff;
+            padding: 4px 8px;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -347,30 +363,27 @@
     </div>
     <div id="dlt" class="tab-content">
         <div class="control-panel">
-            <div class="number-selector">
-                <div class="selector-title">
-                    <span class="zone-name">红球区</span>
-                    <span class="zone-hint">选择5个号码</span>
-                </div>
-                <div class="number-grid" id="dltRedBalls"></div>
-                <div class="selector-title">
-                    <span class="zone-name">蓝球区</span>
-                    <span class="zone-hint">选择2个号码</span>
-                </div>
-                <div class="number-grid" id="dltBlueBalls"></div>
-                <div class="control-buttons">
-                    <button onclick="randomSelect('dlt')">机选号码</button>
-                    <button onclick="clearSelect('dlt')">清空选择</button>
+            <div class="control-row">
+                <div class="input-group">
+                    <span class="input-label">当前中奖号码：</span>
+                    <input type="text" id="dltRedNumberInput" class="red-input"
+                        placeholder="例如：01,15,25,30,35" 
+                        value="01,15,25,30,35"
+                        onchange="updateNumbers('dlt')">
+                    <input type="text" id="dltBlueNumberInput" class="blue-input dlt-blue-input"
+                        placeholder="05,12" 
+                        value="05,12"
+                        onchange="updateNumbers('dlt')">
                 </div>
             </div>
-            <div class="input-section">
+            <div class="control-row">
                 <div class="input-group">
                     <span class="input-label">生成数量：</span>
                     <input type="number" id="dltGenerateCount" 
                         min="1" max="10000" value="100" 
                         onchange="validateCount(this)">
+                    <button onclick="generateDltFromInput()">生成号码</button>
                 </div>
-                <button onclick="generateDltFromInput()">生成号码</button>
             </div>
             <div class="winning-numbers" id="dltWinningNumbersDisplay"></div>
         </div>
