@@ -9,7 +9,7 @@
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
-            background: url('https://pic.616pic.com/bg_w1180/00/04/08/IUJ3YkDsO6.jpg') center center fixed;
+            /* background: url('https://img.zcool.cn/community/01673f56d7e7ee32f875520f99a397.gif') center center fixed; */
             background-size: cover;
             min-height: 100vh;
         }
@@ -247,19 +247,21 @@
         .usage-tips {
             background: rgba(255, 243, 243, 0.95);
             border: 1px solid #ffcaca;
-            padding: 12px 15px;
+            padding: 8px 12px;
             border-radius: 6px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: #ff4444;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.5;
+            max-width: 450px;
+            margin: 0 auto 12px;
         }
         .usage-steps {
-            margin: 5px 0 0 0;
-            padding-left: 20px;
+            margin: 3px 0 0 0;
+            padding-left: 18px;
         }
         .usage-steps li {
-            margin: 3px 0;
+            margin: 2px 0;
         }
         .blue-balls.dlt {
             display: inline-flex;
@@ -337,11 +339,12 @@
             border-radius: 4px;
         }
         .number-selector {
-            padding: 12px 15px;
-            max-width: 500px;
+            padding: 8px 12px;
+            max-width: 400px;  /* 稍微减小最大宽度 */
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         .number-selector-title {
             font-size: 14px;
@@ -354,8 +357,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
-            padding: 0 5px;
+            margin: 8px 0;
+            padding: 0 4px;
         }
         .zone-title span {
             font-size: 13px;
@@ -364,27 +367,28 @@
         .zone-title .hint {
             font-size: 12px;
             color: #999;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.9);
             padding: 2px 8px;
             border-radius: 10px;
+            border: 1px solid #eee;
         }
         .number-grid {
-            display: grid;
+            display: grid;  /* 恢复网格布局 */
             grid-template-columns: repeat(10, 1fr);
-            gap: 6px;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #fff;
+            gap: 4px;
+            padding: 8px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.8);
             border-radius: 6px;
         }
         .number-ball {
-            width: 28px;
-            height: 28px;
-            line-height: 28px;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            font-size: 12px;
             text-align: center;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 13px;
             transition: all 0.2s ease;
             color: #666;
             border: 1px solid #e8e8e8;
@@ -426,24 +430,75 @@
             border-color: #1890ff;
             box-shadow: 0 2px 4px rgba(24, 144, 255, 0.2);
         }
-        /* 修改红包雨样式 */
-        .red-packet {
+        /* 优化红包雨效果 */
+        .red-packets-container {
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
             z-index: -1;
-            animation: fall linear forwards;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" fill="%23d4363b"/><path d="M12 2l4 4H8l4-4z" fill="%23d4363b"/><rect x="8" y="10" width="8" height="2" fill="%23fff"/></svg>') center/contain no-repeat;
+            overflow: hidden;
         }
+        .red-packet {
+            position: absolute;
+            width: 30px;
+            height: 36px;
+            background: linear-gradient(135deg, #ff4444 0%, #d4363b 100%);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            animation: fall linear infinite;
+            transform-style: preserve-3d;
+            opacity: 0.8;
+        }
+        .red-packet::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffaa00 100%);
+            border-radius: 4px 4px 0 0;
+        }
+        .red-packet::after {
+            content: '财';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffd700;
+            font-size: 16px;
+            font-weight: bold;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
         @keyframes fall {
-            0% {
-                transform: translateY(-50px) rotate(0deg);
-                opacity: 1;
+            from {
+                transform: 
+                    translateY(-100%) 
+                    rotate(0deg) 
+                    rotateX(45deg) 
+                    rotateY(45deg);
+                opacity: 0.8;
             }
-            100% {
-                transform: translateY(calc(100vh + 50px)) rotate(360deg);
-                opacity: 0.6;
+            to {
+                transform: 
+                    translateY(100vh) 
+                    rotate(360deg) 
+                    rotateX(45deg) 
+                    rotateY(45deg);
+                opacity: 0.4;
             }
         }
+
+        /* 减少红包数量，增加间距和随机性 */
+        .red-packet:nth-child(1) { left: 10%; animation-duration: 6s; animation-delay: 0s; }
+        .red-packet:nth-child(2) { left: 30%; animation-duration: 7s; animation-delay: 2s; }
+        .red-packet:nth-child(3) { left: 50%; animation-duration: 5.5s; animation-delay: 1s; }
+        .red-packet:nth-child(4) { left: 70%; animation-duration: 6.5s; animation-delay: 3s; }
+        .red-packet:nth-child(5) { left: 90%; animation-duration: 7.5s; animation-delay: 0.5s; }
     </style>
 </head>
 <body>
@@ -480,7 +535,9 @@
                     <div class="input-group">
                         <span class="input-label">生成数量：</span>
                         <input type="number" id="generateCount" 
-                            min="1" max="10000" value="100" 
+                            min="1" max="99999999" value="100" 
+                            placeholder="1-99999999"
+                            title="请输入1-99999999之间的数量"
                             onchange="validateCount(this)">
                         <button onclick="generateFromInput()">生成号码</button>
                     </div>
@@ -539,7 +596,9 @@
                     <div class="input-group">
                         <span class="input-label">生成数量：</span>
                         <input type="number" id="dltGenerateCount" 
-                            min="1" max="10000" value="100" 
+                            min="1" max="99999999" value="100" 
+                            placeholder="1-99999999"
+                            title="请输入1-99999999之间的数量"
                             onchange="validateCount(this)">
                         <button onclick="generateDltFromInput()">生成号码</button>
                     </div>
@@ -574,6 +633,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- 减少红包数量 -->
+    <div class="red-packets-container">
+        <div class="red-packet"></div>
+        <div class="red-packet"></div>
+        <div class="red-packet"></div>
+        <div class="red-packet"></div>
+        <div class="red-packet"></div>
     </div>
 
     <script>
@@ -651,8 +719,8 @@
                 return;
             }
             const count = parseInt(document.getElementById('generateCount').value);
-            if (count < 1 || count > 10000) {
-                alert('请输入1-10000之间的数量！');
+            if (count < 1 || count > 99999999) {
+                alert('请输入1-99999999之间的数量！');
                 return;
             }
             generateMultipleNumbers(count);
@@ -663,8 +731,8 @@
                 return;
             }
             const count = parseInt(document.getElementById('dltGenerateCount').value);
-            if (count < 1 || count > 10000) {
-                alert('请输入1-10000之间的数量！');
+            if (count < 1 || count > 99999999) {
+                alert('请输入1-99999999之间的数量！');
                 return;
             }
             generateDltMultipleNumbers(count);
@@ -674,8 +742,8 @@
             let value = parseInt(input.value);
             if (isNaN(value) || value < 1) {
                 input.value = 1;
-            } else if (value > 10000) {
-                input.value = 10000;
+            } else if (value > 99999999) {
+                input.value = 99999999;
             }
         }
 
@@ -1096,54 +1164,12 @@
             updateSelectedNumbers(type);
         }
 
-        // 优化红包雨效果
-        function createRedPacket() {
-            const redPacket = document.createElement('div');
-            redPacket.className = 'red-packet';
-            
-            // 随机大小和位置
-            const size = Math.random() * 30 + 20;
-            const startPosition = Math.random() * window.innerWidth;
-            const duration = Math.random() * 3 + 2;
-            
-            redPacket.style.cssText = `
-                left: ${startPosition}px;
-                width: ${size}px;
-                height: ${size}px;
-                animation-duration: ${duration}s;
-                filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
-            `;
-            
-            document.body.appendChild(redPacket);
-            
-            // 动画结束后移除元素
-            redPacket.addEventListener('animationend', () => {
-                redPacket.remove();
-            });
-        }
-
-        // 优化红包雨创建频率
-        function startRedPacketRain() {
-            // 初始创建一些红包
-            for(let i = 0; i < 10; i++) {
-                setTimeout(() => createRedPacket(), i * 100);
-            }
-            
-            // 持续创建红包
-            setInterval(() => {
-                if(document.querySelectorAll('.red-packet').length < 20) { // 限制最大数量
-                    createRedPacket();
-                }
-            }, 200);
-        }
-
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', function() {
             initializeNumberSelectors();
             // 不再自动生成号码，等待用户选择开奖号码
             // randomSelect('ssq');
             // randomSelect('dlt');
-            startRedPacketRain();
         });
     </script>
 </body>
