@@ -106,7 +106,7 @@
   filter: blur(150px);
 }
 
-/* 彩票号码球样式 */
+/* 彩票号码球样式优化 */
 .red-ball, .blue-ball, .number, .blue-number {
   display: inline-flex;
   align-items: center;
@@ -118,6 +118,8 @@
   color: white;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
   margin: 0 4px 4px 0;
+  font-size: 16px;
+  text-align: center;
 }
 
 .red-ball {
@@ -133,20 +135,22 @@
   color: #333;
 }
 
-/* 中奖者标记样式 */
+/* 中奖者标记样式优化 */
 .winner-marker {
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 20;
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .winner-marker:hover {
   transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .winner-tooltip {
   position: absolute;
-  width: 200px;
+  width: 220px;
   background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
   border-radius: 10px;
@@ -161,6 +165,9 @@
   visibility: hidden;
   transition: all 0.3s ease;
   pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  z-index: 30;
 }
 
 .winner-marker:hover .winner-tooltip {
@@ -170,20 +177,108 @@
 
 .winner-tooltip h3 {
   font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: white;
+}
+
+.winner-tooltip p {
   margin-bottom: 5px;
+  line-height: 1.4;
 }
 
 .winner-tooltip .prize-amount {
   color: #ffcc00;
   font-weight: bold;
   margin: 5px 0;
+  font-size: 16px;
 }
 
-/* 彩票按钮样式 */
+/* 彩票按钮样式优化 */
 .lottery-button {
   background: linear-gradient(97.86deg, #ff5e5e 0%, #ffcc00 100%);
   border: none;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 2.5rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a232e;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(255, 94, 94, 0.3);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.lottery-button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(97.86deg, #ffcc00 0%, #ff5e5e 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.lottery-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(255, 94, 94, 0.4);
+}
+
+.lottery-button:hover:before {
+  opacity: 1;
+}
+
+/* 修复右侧紫色区域问题 */
+.bg-primary-black {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 确保内容不会溢出容器 */
+section {
+  overflow: hidden;
+  position: relative;
+}
+
+/* 修复响应式布局问题 */
+@media (max-width: 768px) {
+  .red-ball, .blue-ball, .number, .blue-number {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+    margin: 0 3px 3px 0;
+  }
+  
+  .winner-tooltip {
+    width: 180px;
+    padding: 12px;
+    font-size: 12px;
+  }
+  
+  .winner-tooltip h3 {
+    font-size: 14px;
+  }
+  
+  .winner-tooltip .prize-amount {
+    font-size: 14px;
+  }
+  
+  .lottery-button {
+    padding: 0.7rem 2rem;
+    font-size: 1rem;
+  }
+}
+
+/* 修复立即购买按钮样式 */
+.lottery-button, [class*="立即购买"] {
+  background: linear-gradient(97.86deg, #ff5e5e 0%, #ffcc00 100%);
+  border: none;
+  padding: 0.8rem 2.5rem;
   border-radius: 30px;
   font-size: 1.1rem;
   font-weight: 600;
@@ -193,7 +288,143 @@
   box-shadow: 0 8px 20px rgba(255, 94, 94, 0.3);
 }
 
-.lottery-button:hover {
-  transform: translateY(-3px);
+/* 确保页面内容不会被截断 */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* 号码球样式 */
+.number-ball {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-weight: bold;
+  color: #333;
+  background: linear-gradient(135deg, #f5f5f5, #d1d1d1);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  margin: 0 4px 4px 0;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.number-ball:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.number-ball.selected-red {
+  background: linear-gradient(135deg, #ff5e5e, #d10000);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(209, 0, 0, 0.4);
+}
+
+.number-ball.selected-blue {
+  background: linear-gradient(135deg, #5e8eff, #0044d1);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 68, 209, 0.4);
+}
+
+/* 添加选中动画效果 */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 94, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 94, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 94, 94, 0);
+  }
+}
+
+.number-ball.selected-red {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse-blue {
+  0% {
+    box-shadow: 0 0 0 0 rgba(94, 142, 255, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(94, 142, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(94, 142, 255, 0);
+  }
+}
+
+.number-ball.selected-blue {
+  animation: pulse-blue 1.5s infinite;
+}
+
+/* 购买页面响应式调整 */
+@media (max-width: 768px) {
+  .number-ball {
+    width: 35px;
+    height: 35px;
+    font-size: 14px;
+  }
+}
+
+/* 购买页面按钮样式优化 */
+.purchase-button {
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.purchase-button.primary {
+  background: linear-gradient(97.86deg, #ff5e5e 0%, #ffcc00 100%);
+  color: #1a232e;
+  box-shadow: 0 8px 20px rgba(255, 94, 94, 0.3);
+}
+
+.purchase-button.primary:hover {
+  transform: translateY(-3px) scale(1.05);
   box-shadow: 0 12px 25px rgba(255, 94, 94, 0.4);
+}
+
+.purchase-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  backdrop-filter: blur(5px);
+}
+
+.purchase-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.purchase-button.large {
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.purchase-button.disabled {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.purchase-button.disabled:hover {
+  transform: none;
+  box-shadow: none;
 }

@@ -15,29 +15,43 @@ const Feedback = () => (
       className={`${styles.innerWidth} mx-auto flex lg:flex-row flex-col gap-6`}
     >
       <motion.div
-        variants={fadeIn('right', 'tweeen', 0.2, 1)}
-        className="flex-[0.4] lg:max-[370px] flex justify-end lg:justify-center flex-col gradient-05 sm:p-8 p-4 rounded-[32px] border-[1px] border-[#6a6a6a] relative"
+        variants={fadeIn('right', 'tween', 0.2, 1)}
+        className="flex-[0.5] lg:max-w-[370px] flex justify-end flex-col gradient-05 sm:p-8 p-4 rounded-[32px] border-[1px] border-[#6A6A6A] relative"
       >
         <div className="feedback-gradient" />
         <div>
-          <h4 className="font-bold sm:text-[32px] text-[26px] sm:leading-[40px] leading-[36px] text-white">张明</h4>
-          <p className="mt-[8px] font-normal sm:text-[18px] text-[12px] sm:leading-[22px] leading-[16px] text-white">幸运彩票大奖得主</p>
+          <h4 className="font-bold sm:text-[32px] text-[26px] sm:leading-[40.32px] leading-[36.32px] text-white">
+            小明
+          </h4>
+          <p className="mt-[8px] font-normal sm:text-[18px] text-[12px] sm:leading-[22.68px] leading-[16.68px] text-white">
+            数字爱好者 | 彩票玩家
+          </p>
         </div>
-        <p className="mt-[24px] font-normal sm:text-[24px] text-[18px] sm:leading-[45px] leading-[39px] text-white">
-          "我从未想过会中这么大的奖，这改变了我的一生！幸运彩票平台操作简单，提款迅速，服务也非常好。我会继续在这里购买彩票，希望再次中大奖！"
+
+        <p className="mt-[24px] font-normal sm:text-[24px] text-[18px] sm:leading-[45.6px] leading-[39.6px] text-white">
+          "这个网站太有趣了！我本来只是想随便选几个号码，没想到发现了这么多有意思的选号方式。最喜欢那个根据星座选号的功能，虽然还没中大奖，但每次选号都很开心！"
         </p>
       </motion.div>
 
       <motion.div
         variants={fadeIn('left', 'tween', 0.2, 1)}
-        className="relative flex-1 flex justify-center item-center"
+        className="relative flex-1 flex justify-center items-center"
       >
-        <img src="/planet-09.png" alt="planet" className="w-full lg:h-[610px] h-auto min-h-[210px] object-cover rounded-[40px]" />
+        <img
+          src="/planet-09.png"
+          alt="planet-09"
+          className="w-full lg:h-[610px] h-auto min-h-[210px] object-cover rounded-[40px]"
+        />
+
         <motion.div
           variants={zoomIn(0.4, 1)}
           className="lg:block hidden absolute -left-[10%] top-[3%]"
         >
-          <img src="/stamp.png" alt="stamp" className="md:w-[170px] w-[115px] md:h-[170px] h-[115px] object-contain" />
+          <img
+            src="/stamp.png"
+            alt="stamp"
+            className="w-[155px] h-[155px] object-contain"
+          />
         </motion.div>
       </motion.div>
     </motion.div>

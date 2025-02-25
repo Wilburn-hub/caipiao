@@ -16,7 +16,7 @@ const Navbar = () => (
       <img src="/search.svg" alt="search" className="w-[24px] h-[24px] object-contain" />
 
       <h2 className="font-extrabold test-[24px] text-white leading-[30px]">
-        METADROID
+      来财
       </h2>
 
       <img src="/menu.svg" alt="menu" className="w-[24px] h-[24px] object-contain" />

@@ -25,57 +25,55 @@ const latestDraws = [
   },
 ];
 
-const WhatsNew = () => (
-  <section className={`${styles.paddings} relative z-10`}>
-    <motion.div
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: false, amount: 0.25 }}
-      className={`${styles.innerWidth} mx-auto flex lg:flex-row flex-col gap-8`}
-    >
-      <motion.div
-        variants={fadeIn('right', 'tween', 0.2, 1)}
-        className="flex-[0.95] flex justify-center flex-col"
-      >
-        <TypingText title="| 最新开奖" />
-        <TitleText title={<>最新开奖结果</>} />
-        
-        <div className="mt-[48px] flex flex-wrap justify-between gap-[24px]">
-          {latestDraws.map((draw) => (
-            <div key={draw.title} className="flex-1 flex flex-col sm:max-w-[250px] min-w-[210px]">
-              <h3 className="font-bold text-[24px] leading-[30px] text-white">
-                {draw.title} - {draw.subtitle}
-              </h3>
-              <div className="mt-[16px] flex flex-wrap gap-[8px]">
-                {draw.numbers.map((num) => (
-                  <span key={num} className="red-ball">{num}</span>
-                ))}
-                {draw.blueNumber && <span className="blue-ball">{draw.blueNumber}</span>}
-                {draw.blueNumbers && draw.blueNumbers.map((num) => (
-                  <span key={num} className="blue-ball">{num}</span>
-                ))}
-              </div>
-              <p className="flex-1 mt-[16px] font-normal text-[16px] text-[#B0B0B0] leading-[32px]">
-                {draw.prize}
-              </p>
-            </div>
-          ))}
-        </div>
-      </motion.div>
+const WhatsNew = () => {
+  const newFeatures = [
+    {
+      imgUrl: '/vrpano.svg',
+      title: '趣味选号',
+      subtitle: '告别枯燥的数字选择！我们的趣味选号功能让你用星座、生肖、心情等有趣方式选出你的幸运数字',
+    },
+    {
+      imgUrl: '/headset.svg',
+      title: '号码分析',
+      subtitle: '独家开发的号码分析工具，帮你发现数字规律，但记住，最终还是要靠运气和直觉哦！',
+    },
+  ];
 
+  return (
+    <section className={`${styles.paddings} relative z-10`}>
       <motion.div
-        variants={planetVariants('right')}
-        className={`flex-1 ${styles.flexCenter}`}
+        variants={staggerContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: false, amount: 0.25 }}
+        className={`${styles.innerWidth} mx-auto flex lg:flex-row flex-col gap-8`}
       >
-        <img
-          src="/whats-new.png"
-          alt="get-started"
-          className="w-[90%] h-[90%] object-contain"
-        />
+        <motion.div
+          variants={fadeIn('right', 'tween', 0.2, 1)}
+          className="flex-[0.95] flex justify-center flex-col"
+        >
+          <TypingText title="| 有趣功能" />
+          <TitleText title={<>玩转数字，乐在其中</>} />
+          <div className="mt-[48px] flex flex-wrap justify-between gap-[24px]">
+            {newFeatures.map((feature) => (
+              <NewFeatures key={feature.title} {...feature} />
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          variants={planetVariants('right')}
+          className={`flex-1 ${styles.flexCenter}`}
+        >
+          <img
+            src="/whats-new.png"
+            alt="get-started"
+            className="w-[90%] h-[90%] object-contain"
+          />
+        </motion.div>
       </motion.div>
-    </motion.div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default WhatsNew;
