@@ -1,29 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-
 import styles from '../styles';
-import { InsightCard, TitleText, TypingText } from '../components';
+import { insights } from '../constants';
 import { staggerContainer } from '../utils/motion';
-
-// 创建彩票统计数据
-const lotteryStats = [
-  {
-    imgUrl: '/planet-06.png',
-    title: '热门号码分析',
-    subtitle: '过去30天出现频率最高的号码：07、11、22、33、15',
-  },
-  {
-    imgUrl: '/planet-07.png',
-    title: '冷门号码分析',
-    subtitle: '超过60天未出现的号码：02、19、26、31、09',
-  },
-  {
-    imgUrl: '/planet-08.png',
-    title: '奖池趋势分析',
-    subtitle: '近6个月奖池持续增长，目前已达历史新高',
-  },
-];
+import { InsightCard, TitleText, TypingText } from '../components';
 
 const Insights = () => (
   <section className={`${styles.paddings} relative z-10`}>
@@ -34,14 +15,27 @@ const Insights = () => (
       viewport={{ once: false, amount: 0.25 }}
       className={`${styles.innerWidth} mx-auto flex flex-col`}
     >
-      <TypingText title="| 数据分析" textStyles="text-center" />
-      <TitleText title="彩票数据统计" textStyles="text-center" />
-
+      <TypingText title="| 趣味分享" textStyles="text-center" />
+      <TitleText title={<>数字背后的故事</>} textStyles="text-center" />
       <div className="mt-[50px] flex flex-col gap-[30px]">
-        {lotteryStats.map((item, index) => (
+        {insights.map((item, index) => (
           <InsightCard key={`insight-${index}`} {...item} index={index + 1} />
         ))}
       </div>
+      
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="mt-[70px] text-center"
+      >
+        <a 
+          href="#" 
+          className="inline-block bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.2)] transition-all py-[15px] px-[30px] rounded-[30px] text-white font-semibold"
+        >
+          查看更多有趣故事
+        </a>
+      </motion.div>
     </motion.div>
   </section>
 );
