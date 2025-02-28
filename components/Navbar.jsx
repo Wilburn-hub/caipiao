@@ -1,13 +1,57 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '../styles';
 import { navVariants } from '../utils/motion';
 import Link from 'next/link';
+import { LoginModal } from '.';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [avatarError, setAvatarError] = useState(false);
+  
+  // 检查本地存储中是否有用户信息
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.error('Failed to parse user from localStorage');
+      }
+    }
+  }, []);
+  
+  const handleLogin = (username) => {
+    // 使用内置的默认头像，确保它存在
+    const userData = { 
+      username, 
+      avatar: '/default-avatar.png' 
+    };
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  };
+  
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
+  
+  // 处理头像加载错误
+  const handleAvatarError = () => {
+    setAvatarError(true);
+  };
+  
+  // 获取头像URL
+  const getAvatarUrl = () => {
+    if (avatarError || !user?.avatar) {
+      return '/default-avatar.png';
+    }
+    return user.avatar;
+  };
   
   return (
     <motion.nav
@@ -37,19 +81,96 @@ const Navbar = () => {
           <Link href="#feedback" className="text-white hover:text-[#ffcc00] transition-colors">
             用户故事
           </Link>
+          
+          {user ? (
+            <div className="relative group">
+              <div className="flex items-center gap-[8px] cursor-pointer">
+                <div className="w-[32px] h-[32px] rounded-full overflow-hidden border-2 border-[#ffcc00] bg-gray-700 flex items-center justify-center">
+                  <img 
+                    src={getAvatarUrl()}
+                    alt="用户头像" 
+                    className="w-full h-full object-cover"
+                    onError={handleAvatarError}
+                  />
+                </div>
+                <span className="text-white">{user.username}</span>
+              </div>
+              
+              <div className="absolute right-0 top-full mt-[10px] bg-[rgba(0,0,0,0.8)] backdrop-blur-md p-[15px] rounded-[10px] z-50 min-w-[150px] hidden group-hover:block">
+                <div className="flex flex-col gap-[10px]">
+                  <Link href="/profile" className="text-white hover:text-[#ffcc00] transition-colors">
+                    个人中心
+                  </Link>
+                  <Link href="/orders" className="text-white hover:text-[#ffcc00] transition-colors">
+                    我的订单
+                  </Link>
+                  <button 
+                    onClick={handleLogout}
+                    className="text-white hover:text-[#ffcc00] transition-colors text-left"
+                  >
+                    退出登录
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <button 
+              onClick={() => setIsLoginModalOpen(true)}
+              className="text-white hover:text-[#ffcc00] transition-colors"
+            >
+              登录/注册
+            </button>
+          )}
         </div>
         
         <div className="md:hidden relative">
-          <img
-            src="/menu.svg"
-            alt="menu"
-            className="w-[24px] h-[24px] object-contain cursor-pointer"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          />
+          <div className="flex items-center gap-[15px]">
+            {user ? (
+              <div 
+                className="w-[32px] h-[32px] rounded-full overflow-hidden border-2 border-[#ffcc00] bg-gray-700 flex items-center justify-center"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                <img 
+                  src={getAvatarUrl()}
+                  alt="用户头像" 
+                  className="w-full h-full object-cover"
+                  onError={handleAvatarError}
+                />
+              </div>
+            ) : (
+              <button 
+                onClick={() => setIsLoginModalOpen(true)}
+                className="text-white hover:text-[#ffcc00] transition-colors text-[14px]"
+              >
+                登录
+              </button>
+            )}
+            
+            <img
+              src="/menu.svg"
+              alt="menu"
+              className="w-[24px] h-[24px] object-contain cursor-pointer"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            />
+          </div>
           
           {isMenuOpen && (
             <div className="absolute top-[40px] right-0 bg-[rgba(0,0,0,0.8)] backdrop-blur-md p-[20px] rounded-[15px] z-50 min-w-[200px]">
               <div className="flex flex-col gap-[15px]">
+                {user && (
+                  <div className="flex items-center gap-[8px] pb-[10px] border-b border-white/10">
+                    <div className="w-[24px] h-[24px] rounded-full overflow-hidden bg-gray-700 flex items-center justify-center">
+                      <img 
+                        src={getAvatarUrl()}
+                        alt="用户头像" 
+                        className="w-full h-full object-cover"
+                        onError={handleAvatarError}
+                      />
+                    </div>
+                    <span className="text-white">{user.username}</span>
+                  </div>
+                )}
+                
                 <Link 
                   href="/purchase" 
                   className="text-white hover:text-[#ffcc00] transition-colors"
@@ -78,11 +199,45 @@ const Navbar = () => {
                 >
                   用户故事
                 </Link>
+                
+                {user && (
+                  <>
+                    <Link 
+                      href="/profile" 
+                      className="text-white hover:text-[#ffcc00] transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      个人中心
+                    </Link>
+                    <Link 
+                      href="/orders" 
+                      className="text-white hover:text-[#ffcc00] transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      我的订单
+                    </Link>
+                    <button 
+                      onClick={() => {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }}
+                      className="text-white hover:text-[#ffcc00] transition-colors text-left"
+                    >
+                      退出登录
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           )}
         </div>
       </div>
+      
+      <LoginModal 
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onLogin={handleLogin}
+      />
     </motion.nav>
   );
 };

@@ -6,6 +6,8 @@ import NewFeatures from './NewFeatures';
 import InsightCard from './InsightCard';
 import Footer from './Footer';
 import StartingFeatures from './StartingFeatures';
+import LoginModal from './LoginModal';
+import BalanceDisplay from './BalanceDisplay';
 
 export {
   Navbar,
@@ -17,4 +19,6 @@ export {
   InsightCard,
   Footer,
   StartingFeatures,
+  LoginModal,
+  BalanceDisplay,
 };
