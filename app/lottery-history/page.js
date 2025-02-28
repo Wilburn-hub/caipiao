@@ -24,34 +24,47 @@ const LotteryHistory = () => {
       setIsLoading(true);
       setError(null);
       
+      const apiUrl = `/api/lottery-history?type=${encodeURIComponent(type)}&page=${page}&pageSize=10`;
+      console.log('请求API:', apiUrl);
+      
       // 使用API路由获取数据
-      const response = await fetch(`/api/lottery-history?type=${type}&page=${page}&pageSize=10`);
+      const response = await fetch(apiUrl);
+      console.log('API响应状态:', response.status, response.statusText);
       
       if (!response.ok) {
-        throw new Error('获取历史开奖数据失败');
+        throw new Error(`获取历史开奖数据失败: ${response.status} ${response.statusText}`);
       }
       
-      const data = await response.json();
+      const text = await response.text();
+      console.log('API响应内容前100个字符:', text.substring(0, 100));
       
-      if (!data.results || !Array.isArray(data.results)) {
-        throw new Error('历史开奖数据格式不正确');
+      try {
+        const data = JSON.parse(text);
+        console.log('解析后的数据结构:', Object.keys(data));
+        
+        if (!data.results || !Array.isArray(data.results)) {
+          throw new Error('历史开奖数据格式不正确');
+        }
+        
+        setHistoryData(data.results);
+        
+        // 计算总页数
+        const total = data.total || data.results.length;
+        const pageSize = data.pageSize || 10;
+        setTotalPages(Math.ceil(total / pageSize));
+        
+        if (data.error) {
+          setError(data.error);
+        }
+        
+        console.log(`成功获取${type}历史开奖数据:`, data.results.length, '条记录');
+      } catch (parseError) {
+        console.error('JSON解析错误:', parseError);
+        throw new Error('数据格式不正确');
       }
-      
-      setHistoryData(data.results);
-      
-      // 计算总页数
-      const total = data.total || data.results.length;
-      const pageSize = data.pageSize || 10;
-      setTotalPages(Math.ceil(total / pageSize));
-      
-      if (data.error) {
-        setError(data.error);
-      }
-      
-      console.log(`成功获取${type}历史开奖数据:`, data.results.length, '条记录');
     } catch (error) {
       console.error('获取历史开奖数据时出错:', error);
-      setError('获取历史开奖数据失败，请刷新页面重试');
+      setError(`获取历史开奖数据失败: ${error.message}`);
       setHistoryData([]);
       setTotalPages(1);
     } finally {
