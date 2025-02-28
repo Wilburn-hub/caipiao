@@ -81,6 +81,12 @@ const Navbar = () => {
           <Link href="#feedback" className="text-white hover:text-[#ffcc00] transition-colors">
             用户故事
           </Link>
+          <Link href="/lottery-results" className="text-white hover:text-[#ffcc00] transition-colors">
+            彩票开奖
+          </Link>
+          <Link href="/lottery-history" className="text-white hover:text-[#ffcc00] transition-colors">
+            历史开奖
+          </Link>
           
           {user ? (
             <div className="relative group">
@@ -198,6 +204,20 @@ const Navbar = () => {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   用户故事
+                </Link>
+                <Link 
+                  href="/lottery-results" 
+                  className="text-white hover:text-[#ffcc00] transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  彩票开奖
+                </Link>
+                <Link 
+                  href="/lottery-history" 
+                  className="text-white hover:text-[#ffcc00] transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  历史开奖
                 </Link>
                 
                 {user && (
