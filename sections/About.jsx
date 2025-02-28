@@ -25,7 +25,7 @@ const About = () => (
         variants={fadeIn('up', 'tween', 0.2, 1)}
         className="mt-[8px] font-normal sm:text-[32px] text-[20px] text-center text-secondary-white"
       >
-        <span className="font-extrabold">幸运彩票</span> 是中国领先的在线彩票平台，拥有10年以上的行业经验。我们提供安全、透明的彩票购买服务，已帮助超过 <span className="font-extrabold">1000名幸运者</span> 赢得大奖。我们的使命是为彩民提供 <span className="font-extrabold">便捷、可靠</span> 的彩票购买体验，同时确保所有交易的安全性和公正性。让我们一起 <span className="font-extrabold">探索</span> 幸运彩票的世界吧！
+        <span className="font-extrabold">🔥欢迎各位志同道合、怀揣梦想的兄弟姐妹们加入我们的大家庭！🎉让我们齐心协力，用今天的勇气和智慧，去换取未来更加幸福的生活。💪加入我们，一起追寻那一份幸运，让梦想触手可及，一夜成就美好人生！🍀✨</span> 
       </motion.p>
 
       <motion.img
