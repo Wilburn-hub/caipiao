@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import styles from '../styles';
 import { motion } from 'framer-motion';
 import { fadeIn } from '../utils/motion';
@@ -11,6 +12,12 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,10 +48,11 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     }, 1000);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50">
+  // 使用 Portal 渲染到 body
+  return createPortal(
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center" style={{ zIndex: 9999 }}>
       <motion.div
         variants={fadeIn('up', 'tween', 0.2, 0.5)}
         initial="hidden"
@@ -133,7 +141,8 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
           </div>
         </form>
       </motion.div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

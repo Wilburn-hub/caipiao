@@ -6,6 +6,7 @@ import styles from '../styles';
 import { navVariants } from '../utils/motion';
 import Link from 'next/link';
 import { LoginModal } from '.';
+import { Dropdown } from 'antd';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -83,7 +84,26 @@ const Navbar = () => {
           </Link>
           
           {user ? (
-            <div className="relative group">
+            <Dropdown
+              menu={{
+                items: [
+                  {
+                    key: 'profile',
+                    label: <Link href="/profile">个人中心</Link>,
+                  },
+                  {
+                    key: 'orders',
+                    label: <Link href="/orders">我的订单</Link>,
+                  },
+                  {
+                    key: 'logout',
+                    label: <a onClick={handleLogout}>退出登录</a>,
+                  },
+                ],
+              }}
+              placement="bottomRight"
+              trigger={['hover']}
+            >
               <div className="flex items-center gap-[8px] cursor-pointer">
                 <div className="w-[32px] h-[32px] rounded-full overflow-hidden border-2 border-[#ffcc00] bg-gray-700 flex items-center justify-center">
                   <img 
@@ -95,24 +115,7 @@ const Navbar = () => {
                 </div>
                 <span className="text-white">{user.username}</span>
               </div>
-              
-              <div className="absolute right-0 top-full mt-[10px] bg-[rgba(0,0,0,0.8)] backdrop-blur-md p-[15px] rounded-[10px] z-50 min-w-[150px] hidden group-hover:block">
-                <div className="flex flex-col gap-[10px]">
-                  <Link href="/profile" className="text-white hover:text-[#ffcc00] transition-colors">
-                    个人中心
-                  </Link>
-                  <Link href="/orders" className="text-white hover:text-[#ffcc00] transition-colors">
-                    我的订单
-                  </Link>
-                  <button 
-                    onClick={handleLogout}
-                    className="text-white hover:text-[#ffcc00] transition-colors text-left"
-                  >
-                    退出登录
-                  </button>
-                </div>
-              </div>
-            </div>
+            </Dropdown>
           ) : (
             <button 
               onClick={() => setIsLoginModalOpen(true)}

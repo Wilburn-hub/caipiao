@@ -1,0 +1,63 @@
+.user-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-container {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #111;
+  border-radius: 4px;
+  padding: 8px 0;
+  min-width: 150px;
+  z-index: 1000;
+  margin-top: 0;
+}
+
+.menu-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+}
+
+.menu-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-dropdown li {
+  padding: 8px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.menu-dropdown li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 可以自定义 Ant Design 下拉菜单样式 */
+:global(.ant-dropdown-menu) {
+  background-color: #111 !important;
+  border-radius: 4px !important;
+}
+
+:global(.ant-dropdown-menu-item) {
+  color: #fff !important;
+}
+
+:global(.ant-dropdown-menu-item:hover) {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+} 

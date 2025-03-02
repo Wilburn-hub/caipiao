@@ -27,6 +27,7 @@ const Purchase = () => {
   const [personalType, setPersonalType] = useState(''); // 'birthday', 'zodiac', 'name', 'mood'
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [showLoginReminder, setShowLoginReminder] = useState(false);
   
   const games = [
     { id: '双色球', redCount: 6, blueCount: 1, redRange: 33, blueRange: 16, price: 2, additionalPrice: 1 },
@@ -127,6 +128,11 @@ const Purchase = () => {
         setNumbers([...numbers, num]);
       }
     }
+    
+    // 无论用户是否登录，都让用户可以选择号码
+    if (!user) {
+      setShowLoginReminder(true);
+    }
   };
   
   // 生成一注随机号码
@@ -193,69 +199,86 @@ const Purchase = () => {
     return { reds: randomReds, blues: randomBlues };
   };
   
-  // 修改随机选择函数
-  const handleRandomSelect = () => {
-    if (isComplex) {
-      // 复式投注的随机选择
-      if (complexRandomCount === 1) {
-        // 如果只选择一注，直接设置当前选择
-        const bet = generateComplexRandomBet();
-        setNumbers(bet.reds);
-        setBlueNumbers(bet.blues);
-        setComplexBets([]);
+  // 修改号码生成函数，确保不依赖于登录状态且适应不同游戏类型
+  const generateNumbers = (type) => {
+    // 无论用户是否登录都执行
+    if (type === 'random') {
+      if (isComplex) {
+        // 复式投注的随机选择
+        if (complexRandomCount === 1) {
+          // 如果只选择一注，直接设置当前选择
+          const bet = generateComplexRandomBet();
+          setNumbers(bet.reds);
+          setBlueNumbers(bet.blues);
+          setComplexBets([]);
+        } else {
+          // 如果选择多注，生成多个复式投注
+          const maxBets = 100; // 限制最大生成数量为100注
+          const betsToGenerate = Math.min(complexRandomCount, maxBets);
+          
+          if (complexRandomCount > maxBets) {
+            alert(`为保证系统性能，最多只能生成${maxBets}注复式投注`);
+          }
+          
+          const newComplexBets = [];
+          for (let i = 0; i < betsToGenerate; i++) {
+            newComplexBets.push(generateComplexRandomBet());
+          }
+          
+          // 设置复式投注列表
+          setComplexBets(newComplexBets);
+          
+          // 显示第一注
+          setCurrentComplexBetIndex(0);
+          if (newComplexBets.length > 0) {
+            setNumbers(newComplexBets[0].reds);
+            setBlueNumbers(newComplexBets[0].blues);
+          }
+        }
       } else {
-        // 如果选择多注，生成多个复式投注
+        // 单式投注的随机选择
         const maxBets = 100; // 限制最大生成数量为100注
-        const betsToGenerate = Math.min(complexRandomCount, maxBets);
+        const betsToGenerate = Math.min(randomCount, maxBets);
         
-        if (complexRandomCount > maxBets) {
-          alert(`为保证系统性能，最多只能生成${maxBets}注复式投注`);
+        if (randomCount > maxBets) {
+          alert(`为保证系统性能，最多只能生成${maxBets}注单式投注`);
         }
         
-        const newComplexBets = [];
+        const newBets = [];
         for (let i = 0; i < betsToGenerate; i++) {
-          newComplexBets.push(generateComplexRandomBet());
+          newBets.push(generateRandomBet());
         }
         
-        // 设置复式投注列表
-        setComplexBets(newComplexBets);
+        // 检查是否超过总数限制
+        const totalBetsAfterAdd = selectedBets.length + newBets.length;
+        if (totalBetsAfterAdd > maxBets) {
+          alert(`投注列表最多只能包含${maxBets}注，当前已有${selectedBets.length}注`);
+          // 只添加不超过限制的部分
+          const remainingSlots = maxBets - selectedBets.length;
+          if (remainingSlots > 0) {
+            setSelectedBets([...selectedBets, ...newBets.slice(0, remainingSlots)]);
+          }
+        } else {
+          setSelectedBets([...selectedBets, ...newBets]);
+        }
         
-        // 显示第一注
-        setCurrentComplexBetIndex(0);
-        if (newComplexBets.length > 0) {
-          setNumbers(newComplexBets[0].reds);
-          setBlueNumbers(newComplexBets[0].blues);
-        }
+        setNumbers([]);
+        setBlueNumbers([]);
       }
-    } else {
-      // 单式投注的随机选择
-      const maxBets = 100; // 限制最大生成数量为100注
-      const betsToGenerate = Math.min(randomCount, maxBets);
-      
-      if (randomCount > maxBets) {
-        alert(`为保证系统性能，最多只能生成${maxBets}注单式投注`);
-      }
-      
-      const newBets = [];
-      for (let i = 0; i < betsToGenerate; i++) {
-        newBets.push(generateRandomBet());
-      }
-      
-      // 检查是否超过总数限制
-      const totalBetsAfterAdd = selectedBets.length + newBets.length;
-      if (totalBetsAfterAdd > maxBets) {
-        alert(`投注列表最多只能包含${maxBets}注，当前已有${selectedBets.length}注`);
-        // 只添加不超过限制的部分
-        const remainingSlots = maxBets - selectedBets.length;
-        if (remainingSlots > 0) {
-          setSelectedBets([...selectedBets, ...newBets.slice(0, remainingSlots)]);
-        }
-      } else {
-        setSelectedBets([...selectedBets, ...newBets]);
-      }
-      
+    } else if (type === 'manual') {
+      // 初始化手动选择的数组
       setNumbers([]);
       setBlueNumbers([]);
+      
+      // 如果是单式投注模式，也清空已选投注
+      if (!isComplex) {
+        setSelectedBets([]);
+      }
+    }
+    
+    // 如果用户未登录，显示登录提示但不阻止号码生成
+    if (!user) {
+      setShowLoginReminder(true);
     }
   };
   
@@ -319,7 +342,7 @@ const Purchase = () => {
   }, []);
   
   const handleLogin = (username) => {
-    const userData = { username, avatar: '/avatar.png' };
+    const userData = { username, avatar: '/avatar.png', balance: 10000 };
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
@@ -333,15 +356,17 @@ const Purchase = () => {
     }
     
     // 检查余额是否足够
-    if ((user.balance || 0) < totalAmount) {
-      alert(`余额不足！当前余额: ¥${user.balance?.toFixed(2) || '0.00'}，需要: ¥${totalAmount.toFixed(2)}`);
+    const currentBalance = user.balance || 0;
+    if (currentBalance < totalAmount) {
+      alert(`余额不足！当前余额: ¥${currentBalance.toFixed(2)}，需要: ¥${totalAmount.toFixed(2)}`);
       return;
     }
     
     // 扣减余额
+    const newBalance = currentBalance - totalAmount;
     const updatedUser = {
       ...user,
-      balance: (user.balance || 0) - totalAmount
+      balance: newBalance
     };
     setUser(updatedUser);
     localStorage.setItem('user', JSON.stringify(updatedUser));
@@ -373,7 +398,7 @@ const Purchase = () => {
     orders = [newOrder, ...orders];
     localStorage.setItem('orders', JSON.stringify(orders));
     
-    alert(`购买成功！订单号: ${orderId}，共 ${betCount} 注，总金额 ¥${totalAmount.toFixed(2)}`);
+    alert(`购买成功！订单号: ${orderId}，共 ${betCount} 注，总金额 ¥${totalAmount.toFixed(2)}，剩余余额: ¥${newBalance.toFixed(2)}`);
     
     // 清空选择
     setNumbers([]);
@@ -386,7 +411,13 @@ const Purchase = () => {
   
   // 个性选号函数
   const handlePersonalSelect = () => {
+    // 无论用户是否登录，都打开个性选号模态框
     setIsPersonalModalOpen(true);
+    
+    // 如果用户未登录，显示提示但不阻止功能
+    if (!user) {
+      setShowLoginReminder(true);
+    }
   };
   
   // 关闭个性选号模态框
@@ -732,7 +763,7 @@ const Purchase = () => {
     <div className="bg-primary-black overflow-hidden">
       <Navbar />
       
-      <section className={`${styles.paddings} relative z-10`}>
+      <section className={`${styles.paddings} relative`}>
         <motion.div
           variants={staggerContainer}
           initial="hidden"
@@ -1034,9 +1065,10 @@ const Purchase = () => {
             <div className="bg-[rgba(0,0,0,0.3)] p-[25px] rounded-[15px] mb-[30px]">
               <h3 className="text-white font-bold text-[20px] mb-[20px]">您的选择</h3>
               
-              {!isComplex && selectedBets.length === 0 && (
+              {/* 当前选择的号码 */}
+              {(numbers.length > 0 || blueNumbers.length > 0) && (
                 <div className="flex items-center mb-[20px]">
-                  <p className="text-white mr-[15px] min-w-[80px]">选择号码：</p>
+                  <p className="text-white mr-[15px] min-w-[80px]">当前选择：</p>
                   <div className="flex flex-wrap gap-[8px]">
                     {numbers.map(num => (
                       <span key={`selected-${num}`} className="red-ball">
@@ -1053,20 +1085,45 @@ const Purchase = () => {
                 </div>
               )}
               
-              {isComplex && (
-                <div className="flex items-center mb-[20px]">
-                  <p className="text-white mr-[15px] min-w-[80px]">选择号码：</p>
-                  <div className="flex flex-wrap gap-[8px]">
-                    {numbers.map(num => (
-                      <span key={`selected-${num}`} className="red-ball">
-                        {num < 10 ? `0${num}` : num}
-                      </span>
-                    ))}
-                    
-                    {blueNumbers.map(num => (
-                      <span key={`selected-blue-${num}`} className="blue-ball">
-                        {num < 10 ? `0${num}` : num}
-                      </span>
+              {/* 已选择的投注列表 - 对于单式投注 */}
+              {!isComplex && selectedBets.length > 0 && (
+                <div className="mb-[20px]">
+                  <p className="text-white mb-[10px]">已选择 {selectedBets.length} 注：</p>
+                  <div className="max-h-[300px] overflow-y-auto bg-[rgba(0,0,0,0.2)] p-[20px] rounded-[15px]">
+                    {selectedBets.map((bet, index) => (
+                      <div 
+                        key={`bet-${index}`} 
+                        className="flex items-center justify-between mb-[10px] p-[10px] rounded-[10px] bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,94,94,0.2)] cursor-pointer"
+                      >
+                        <div className="flex items-center">
+                          <span className="text-white mr-[10px]">{index + 1}.</span>
+                          <div className="flex flex-wrap gap-[5px]">
+                            {bet.reds.map(num => (
+                              <span 
+                                key={`bet-${index}-red-${num}`} 
+                                className="red-ball"
+                              >
+                                {num < 10 ? `0${num}` : num}
+                              </span>
+                            ))}
+                            
+                            {bet.blues.map(num => (
+                              <span 
+                                key={`bet-${index}-blue-${num}`} 
+                                className="blue-ball"
+                              >
+                                {num < 10 ? `0${num}` : num}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                        <button 
+                          className="text-[rgba(255,255,255,0.7)] hover:text-[#ff5e5e]"
+                          onClick={() => handleRemoveBet(index)}
+                        >
+                          ×
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -1092,29 +1149,23 @@ const Purchase = () => {
             </div>
             
             {/* 按钮部分 */}
-            <div className="grid grid-cols-2 sm:flex sm:justify-between sm:items-center gap-[10px] mb-[20px]">
+            <div className="flex justify-start gap-[10px] mb-[20px]">
               <button
-                className="purchase-button secondary w-full sm:w-auto text-center py-[12px] px-[15px] rounded-[30px]"
-                onClick={handleRandomSelect}
+                className="purchase-button secondary py-[12px] px-[20px] rounded-[30px]"
+                onClick={() => generateNumbers('random')}
               >
-                <span className="hidden sm:inline">
-                  {isComplex ? `机选${complexRandomCount}注` : `机选${randomCount}注`}
-                </span>
-                <span className="sm:hidden">
-                  机选{isComplex ? complexRandomCount : randomCount}注
-                </span>
+                机选注
               </button>
               
               <button
-                className="purchase-button secondary w-full sm:w-auto text-center py-[12px] px-[15px] rounded-[30px]"
-                onClick={handlePersonalSelect}
+                className="purchase-button secondary py-[12px] px-[20px] rounded-[30px]"
+                onClick={() => generateNumbers('manual')}
               >
-                <span className="hidden sm:inline">个性选号</span>
-                <span className="sm:hidden">个性选号</span>
+                手动选号
               </button>
               
               <button
-                className="purchase-button secondary w-full sm:w-auto text-center py-[12px] px-[15px] rounded-[30px]"
+                className="purchase-button secondary py-[12px] px-[20px] rounded-[30px]"
                 onClick={() => {
                   setNumbers([]);
                   setBlueNumbers([]);
@@ -1123,17 +1174,7 @@ const Purchase = () => {
                   }
                 }}
               >
-                <span className="hidden sm:inline">清空选择</span>
-                <span className="sm:hidden">清空选择</span>
-              </button>
-              
-              <button
-                className={`purchase-button w-full sm:w-auto text-center py-[12px] px-[15px] rounded-[30px] ${betCount > 0 ? 'primary' : 'disabled'}`}
-                onClick={handleSubmit}
-                disabled={betCount === 0}
-              >
-                <span className="hidden sm:inline">确认购买</span>
-                <span className="sm:hidden">确认购买</span>
+                清空选择
               </button>
             </div>
             
@@ -1155,7 +1196,7 @@ const Purchase = () => {
       
       {/* 个性选号模态框 */}
       {isPersonalModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-[20px]">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[99]">
           <div className="bg-[#1B2838] rounded-[20px] p-[30px] max-w-[500px] w-full max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-[20px]">
               <h2 className="text-white font-bold text-[24px]">个性选号</h2>
@@ -1362,6 +1403,32 @@ const Purchase = () => {
         onClose={() => setIsLoginModalOpen(false)}
         onLogin={handleLogin}
       />
+      
+      {showLoginReminder && !user && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[99]">
+          <div className="bg-[#1B2838] rounded-[20px] p-[30px] max-w-[500px] w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-[20px]">
+              <h2 className="text-white font-bold text-[24px]">登录提示</h2>
+              <button 
+                className="text-white text-[24px] hover:text-[#ffcc00]"
+                onClick={() => setIsLoginModalOpen(true)}
+              >
+                ×
+              </button>
+            </div>
+            
+            <div className="flex flex-col gap-[15px]">
+              <p className="text-white mb-[20px]">您尚未登录，登录后才能完成购买。</p>
+              <button 
+                className="purchase-button secondary"
+                onClick={() => setIsLoginModalOpen(true)}
+              >
+                立即登录
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       <Footer />
     </div>
