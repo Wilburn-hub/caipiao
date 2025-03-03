@@ -1,4 +1,5 @@
 <think>
+基础框架 https://github.com/vignesh-gupta/meta-droid
 
 1. 这是一个使用Next.js框架构建的web应用
 2. 项目涉及到彩票选号、购买等功能
