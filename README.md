@@ -1,13 +1,22 @@
 <think>
+<<<<<<< HEAD
 我需要为用户生成一个完整的项目介绍README文档。这是一个Next.js项目，看起来是一个名为"来财来财"的数字彩票平台。
 
 根据提供的代码文件，我可以看到：
+=======
+基础框架 https://github.com/vignesh-gupta/meta-droid
+
+>>>>>>> 54ad51f4cd130f9ed0f1e56283a99da82922a3ac
 1. 这是一个使用Next.js框架构建的web应用
 2. 项目涉及到彩票选号、购买等功能
 3. 有用户账户管理、订单管理等功能
 4. 使用了现代前端技术如Framer Motion进行动画效果
 
+<<<<<<< HEAD
 我将创建一个全面的README文档，包括以下部分：
+=======
+包括以下部分：
+>>>>>>> 54ad51f4cd130f9ed0f1e56283a99da82922a3ac
 - 项目标题和简介
 - 技术栈
 - 功能特点
@@ -18,7 +27,11 @@
 - 贡献指南
 - 许可信息
 
+<<<<<<< HEAD
 我需要用中文编写，因为用户的指令是用中文的，并且项目本身也有中文元素。
+=======
+
+>>>>>>> 54ad51f4cd130f9ed0f1e56283a99da82922a3ac
 </think>
 
 # 来财来财 - 数字彩票平台
@@ -58,7 +71,11 @@
 
 1. 克隆项目仓库
 ```bash
+<<<<<<< HEAD
 git clone https://github.com/yourusername/laicai-laicai.git
+=======
+git clone https://github.com/Wilburn-hub/caipiao.git
+>>>>>>> 54ad51f4cd130f9ed0f1e56283a99da82922a3ac
 cd laicai-laicai
 ```
 
